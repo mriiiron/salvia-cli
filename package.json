@@ -8,12 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mriiiron/salvia-cli.git"
+    "url": "https://github.com/mriiiron/salvia-cli.git"
   },
   "author": "mriiiron",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mriiiron/salvia-cli/issues"
   },
-  "homepage": "https://github.com/mriiiron/salvia-cli#readme"
+  "homepage": "https://github.com/mriiiron/salvia-cli#readme",
+  "bin": {
+    "salvia": "./bin/build.js"
+  }
 }
