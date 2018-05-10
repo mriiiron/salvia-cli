@@ -41,19 +41,22 @@ for (let i = 0; i < postFiles.length; i++) {
 
             switch (metaKey) {
                 case 'title':
-
+                    post.title = metaValue;
                     break;
                 case 'author':
-
+                    post.author = metaValue;
                     break;
                 case 'date':
-
+                    post.date = (new Date(metaValue)).toJSON();
                     break;
                 case 'category':
-
+                    post.category = metaValue;
                     break;
                 case 'tags':
-
+                    let tags = metaValue.split(',');
+                    for (let k = 0; k < tags.length; k++) {
+                        post.tags.push(tags[k].trim());
+                    }
                     break;
                 default:
                     // ERROR
@@ -62,7 +65,10 @@ for (let i = 0; i < postFiles.length; i++) {
 
         }
 
+        result.posts.push(post);
+
     }
 
-
 }
+
+console.log(result);
