@@ -10,17 +10,12 @@ let result = {
 };
 
 let postFiles = fs.readdirSync('./posts/');
+
 for (let i = 0; i < postFiles.length; i++) {
-    // console.log(posts[i]);
-
     let postContent = fs.readFileSync('./posts/' + postFiles[i], 'utf8');
-    // console.log(postContent);
-
     if (postContent.startsWith('```')) {
         let metaEndIndex = postContent.indexOf('```', 3);
         let metaContent = postContent.substring(3, metaEndIndex).trim().replace(/\r\n/g, '\n');
-        // console.log(metaContent);
-
         let post = {
             title: null,
             author: null,
@@ -37,8 +32,6 @@ for (let i = 0; i < postFiles.length; i++) {
             }
             let metaKey = metaItem.substring(0, colonIndex).trim();
             let metaValue = metaItem.substring(colonIndex + 1).trim();
-            // console.log(metaKey + ': ' + metaValue);
-
             switch (metaKey) {
                 case 'title':
                     post.title = metaValue;
@@ -65,15 +58,9 @@ for (let i = 0; i < postFiles.length; i++) {
                     // ERROR
                     break;
             };
-
         }
-
         result.posts.push(post);
-
     }
-
 }
-
-//console.log(JSON.stringify(result));
 
 fs.writeFileSync('./salvia.meta.json', JSON.stringify(result))
