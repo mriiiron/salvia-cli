@@ -9,11 +9,11 @@ let result = {
     categories: []
 };
 
-let postFiles = fs.readdirSync('.');
+let postFiles = fs.readdirSync('./posts/');
 for (let i = 0; i < postFiles.length; i++) {
     // console.log(posts[i]);
 
-    let postContent = fs.readFileSync('./' + postFiles[i], 'utf8');
+    let postContent = fs.readFileSync('./posts/' + postFiles[i], 'utf8');
     // console.log(postContent);
 
     if (postContent.startsWith('```')) {
@@ -51,11 +51,14 @@ for (let i = 0; i < postFiles.length; i++) {
                     break;
                 case 'category':
                     post.category = metaValue;
+                    if (!result.categories.includes(metaValue)) { result.categories.push(metaValue); }
                     break;
                 case 'tags':
                     let tags = metaValue.split(',');
                     for (let k = 0; k < tags.length; k++) {
-                        post.tags.push(tags[k].trim());
+                        let tag = tags[k].trim();
+                        post.tags.push(tag);
+                        if (!result.tags.includes(tag)) { result.tags.push(tag); }
                     }
                     break;
                 default:
@@ -71,4 +74,6 @@ for (let i = 0; i < postFiles.length; i++) {
 
 }
 
-console.log(result);
+//console.log(JSON.stringify(result));
+
+fs.writeFileSync('./salvia.meta.json', JSON.stringify(result))
