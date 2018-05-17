@@ -12,11 +12,13 @@ let result = {
 let postFiles = fs.readdirSync('./posts/');
 
 for (let i = 0; i < postFiles.length; i++) {
+    let postKey = postFiles[i].replace(/\..*$/g, '');
     let postContent = fs.readFileSync('./posts/' + postFiles[i], 'utf8');
     if (postContent.startsWith('```')) {
         let metaEndIndex = postContent.indexOf('```', 3);
         let metaContent = postContent.substring(3, metaEndIndex).trim().replace(/\r\n/g, '\n');
         let post = {
+            key: postKey,
             title: null,
             author: null,
             date: null,
@@ -63,4 +65,4 @@ for (let i = 0; i < postFiles.length; i++) {
     }
 }
 
-fs.writeFileSync('./salvia.meta.json', JSON.stringify(result))
+fs.writeFileSync('./salvia.posts.json', JSON.stringify(result))
