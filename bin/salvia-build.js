@@ -2,7 +2,6 @@
 
 let fs = require('fs');
 
-
 let result = {
     posts: [],
     tags: [],
@@ -65,4 +64,4 @@ for (let i = 0; i < postFiles.length; i++) {
     }
 }
 
-fs.writeFileSync('./salvia.posts.json', JSON.stringify(result))
+fs.writeFileSync('./salvia.posts.json', JSON.stringify(result));

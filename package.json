@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/mriiiron/salvia-cli#readme",
   "bin": {
-    "salvia": "./bin/build.js"
+    "salvia": "./bin/salvia.js"
+  },
+  "dependencies": {
+    "commander": "^2.15.1"
   }
 }
