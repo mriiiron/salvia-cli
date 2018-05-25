@@ -8,11 +8,21 @@ let result = {
     categories: []
 };
 
-let postFiles = fs.readdirSync('./posts/');
+try {
+    let pass = fs.statSync('./salvia.blog.json').isFile() && fs.statSync('./posts').isDirectory();
+}
+catch (e) {
+    console.error('Salvia ERROR: Current path is not a valid Salvia site.');
+    return;
+}
+
+let postFiles = fs.readdirSync('./posts');
+let countProcessed = 0;
 
 for (let i = 0; i < postFiles.length; i++) {
-    let postKey = postFiles[i].replace(/\..*$/g, '');
-    let postContent = fs.readFileSync('./posts/' + postFiles[i], 'utf8');
+    let postFileName = postFiles[i];
+    let postKey = postFileName.replace(/\..*$/g, '');
+    let postContent = fs.readFileSync('./posts/' + postFileName, 'utf8');
     if (postContent.startsWith('```')) {
         let metaEndIndex = postContent.indexOf('```', 3);
         let metaContent = postContent.substring(3, metaEndIndex).trim().replace(/\r\n/g, '\n');
@@ -61,7 +71,13 @@ for (let i = 0; i < postFiles.length; i++) {
             };
         }
         result.posts.push(post);
+        countProcessed++;
+    }
+    else {
+        console.warn('Salvia WARNING: "' + postFileName + '" lacks metadata block.');
     }
 }
+
+console.log('Salvia: Done. ' + countProcessed + ' post(s) processed.');
 
 fs.writeFileSync('./salvia.posts.json', JSON.stringify(result));
