@@ -1,13 +1,38 @@
 #!/usr/bin/env node
 
-let fs = require('fs');
+const fs = require('fs');
+const path = require('path');
+const copydir = require('copy-dir');
+const builder = require('./salvia-build');
 
-let dir = process.argv[2];
+exports.init = function (dir) {
 
-// try {
-//     let pass = fs.statSync('./posts').isDirectory();
-// }
-// catch (e) {
-//     console.error('Salvia ERROR: Current path is not a valid Salvia site.');
-//     return;
-// }
+    console.log('Salvia: Initializing ' + dir + ' ...');
+
+    try {
+        if (fs.statSync('./' + dir).isDirectory()) {
+            console.error('Salvia ERROR: Target directory "' + dir + '" exists.');
+            process.exit(1);
+        }
+    }
+    catch (e) {
+        if (/^[a-zA-Z0-9_\-]*$/.test(dir)) {
+            fs.mkdirSync(dir);
+        }
+        else {
+            console.error('Salvia ERROR: Directory name can only include letters, numbers, hyphens (-) and underscores (_).');
+        }
+    }
+
+    try {
+        copydir.sync(path.join(__dirname, '../assets'), path.join('.', dir));
+        builder.build(dir);
+    }
+    catch (e) {
+        console.error('Salvia ERROR: Failed to initialize blog. Details:');
+        console.error(e.message);
+    }
+
+    console.log('Salvia: Your new blog is ready. Enjoy :)');
+
+}

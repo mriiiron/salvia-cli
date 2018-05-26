@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Your Blog by Salvia</title>
+</head>
+
+<body>
+
+    <header id="header"></header>
+    <main id="feed"></main>
+    <footer id="footer"></footer>
+
+    <script src="https://rawgit.com/mriiiron/salvia/master/dist/salvia.min.js"></script>
+    <script>
+        let blog = new Salvia({
+            el: {
+                header: '#header',
+                feed: '#feed',
+                footer: '#footer'
+            }
+        });
+    </script>
+
+</body>

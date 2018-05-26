@@ -1,0 +1,9 @@
+{
+    "blog": {
+        "title": "Hello Salvia",
+        "theme": "noir"
+    },
+    "nav": [
+        { "text": "Home", "href": "./index.html" }
+    ]
+}
