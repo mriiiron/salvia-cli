@@ -2,6 +2,12 @@
 
 CLI for [SalviaJS](https://github.com/mriiiron/salvia).
 
+## Installation
+
+``` bash
+$ npm install salvia-cli -g
+```
+
 ## To-do
 
 - [x] `salvia init <folder>`
